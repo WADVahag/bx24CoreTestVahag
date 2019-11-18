@@ -1,0 +1,15 @@
+{
+    "name": "norayr/bxmodule",
+    "description": "bitrix24 restModule",
+    "authors": [{
+        "name": "Norayr Petrosyan",
+        "email": "nordeveloper@gmail.com"
+    }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Bitrix24\\": "bitrix24",
+            "App\\": "app"
+        }
+    }
+}
