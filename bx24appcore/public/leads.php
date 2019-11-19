@@ -13,7 +13,11 @@ $id = intval($_GET['id']);
 // $phoneNumber = $_POST['phoneNumber'];
 require "../run.php";
 
-$getLeads = $crm->getLeads();
+$getLeads = $crm->getLeadList(array(
+    'order' => ["ID" => "DESC"],
+    // 'filter' => [">PROBABILITY"=> 50 ], //["CATALOG_ID" => $catalogId],
+    'select' => ["*", "UF_*"]
+));
 
 
 // $resLeadAdd = $crm->LeadAdd(array(
@@ -35,23 +39,23 @@ $getLeads = $crm->getLeads();
 
 // ));
 
-$resLeadUpdate = $crm->LeadUpdate(
-    3, //$id
-    array(
+// $resLeadUpdate = $crm->LeadUpdate(
+//     3, //$id
+//     array(
 
-        "TITLE" => "ИП Титов 2222", //$title, 
-        "NAME" => "Глеб",  //$name,
-        "SECOND_NAME" => "Егорович", //$secondName 
-        "LAST_NAME" => "Титов", //$lastName,
-        "STATUS_ID" => "NEW",
-        "OPENED" => "Y",
-        "ASSIGNED_BY_ID" => 1,
-        "CURRENCY_ID" => "USD", //$currencyId,
-        "OPPORTUNITY" => 12500, //$price,
-        "PHONE" => array("VALUE" => '555888', "VALUE_TYPE" => "WORK") // array("VALUE" => $phoneNumber, "VALUE_TYPE" => "WORK")
-    )
-);
+//         "TITLE" => "ИП Титов 2222", //$title, 
+//         "NAME" => "Глеб",  //$name,
+//         "SECOND_NAME" => "Егорович", //$secondName 
+//         "LAST_NAME" => "Титов", //$lastName,
+//         "STATUS_ID" => "NEW",
+//         "OPENED" => "Y",
+//         "ASSIGNED_BY_ID" => 1,
+//         "CURRENCY_ID" => "USD", //$currencyId,
+//         "OPPORTUNITY" => 12500, //$price,
+//         "PHONE" => array("VALUE" => '555888', "VALUE_TYPE" => "WORK") // array("VALUE" => $phoneNumber, "VALUE_TYPE" => "WORK")
+//     )
+// );
 
-$resLeadDelete =  $crm->LeadDelete(3); //$crm->LeadDelete($id);
+// $resLeadDelete =  $crm->LeadDelete(3); //$crm->LeadDelete($id);
 echo '<pre>';
-print_r($resLeadDelete);
+print_r($getLeads);

@@ -6,19 +6,23 @@ require "../run.php";
 // $newCompanyPhone = $_POST['newCompanyPhone'];
 
 
-$resCompanies = $crm->getCompanies();
+$resCompanies = $crm->getCompanieList(array(
+    'order' => ["ID" => "DESC"],
+    // 'filter' => [">PROBABILITY"=> 50 ], //["CATALOG_ID" => $catalogId],
+    'select' => ["*", "UF_*"]
+));
 // $resCompanieById = $crm->getCompanyById(3);
 
-$resCompanyAdd = $crm->CompanieAdd(
-    array(
-        'fields' => [
-            "TITLE" => 'ADIDAS', //$newCustomerName,
-            "COMPANY_TYPE" => "CUSTOMER",
-            "PHONE" => array(["VALUE" => 132456, "VALUE_TYPE" => "WORK"]) //array(["VALUE" => $newCustomerPhone, "VALUE_TYPE" => "WORK"])
-        ],
-        'params' => ['REGISTER_SONET_EVENT' => 'Y']
-    )
-);
+// $resCompanyAdd = $crm->CompanieAdd(
+//     array(
+//         'fields' => [
+//             "TITLE" => 'ADIDAS', //$newCustomerName,
+//             "COMPANY_TYPE" => "CUSTOMER",
+//             "PHONE" => array(["VALUE" => 132456, "VALUE_TYPE" => "WORK"]) //array(["VALUE" => $newCustomerPhone, "VALUE_TYPE" => "WORK"])
+//         ],
+//         'params' => ['REGISTER_SONET_EVENT' => 'Y']
+//     )
+// );
 
 // $resCompanyUpdate = $crm->CompanieUpdate(
 //     3, //$id,
@@ -31,4 +35,4 @@ $resCompanyAdd = $crm->CompanieAdd(
 
 // $resCompanyDelete = $crm->CompanieDelete(3);
 echo '<pre>';
-print_r($resCompanyAdd);
+print_r($resCompanies);

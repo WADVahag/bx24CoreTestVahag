@@ -32,7 +32,7 @@ class Crm
     }
 
 
-    public function getContacts($params = array())
+    public function getContactList($params = array())
     {
         return $this->restCommand('crm.contact.list', $params);
     }
@@ -64,7 +64,7 @@ class Crm
         return $this->restCommand('crm.contact.userfield.list', $params);
     }
 
-    public function getCompanies($params = array())
+    public function getCompanieList($params = array())
     {
         return $this->restCommand('crm.company.list', $params);
     }
@@ -97,9 +97,9 @@ class Crm
         return $this->restCommand('crm.company.userfield.list', $params);
     }
 
-    public function getDeals($params = array())
+    public function getDealList($params = array())
     {
-        return $this->restCommand('crm.deal.list');
+        return $this->restCommand('crm.deal.list', $params);
     }
 
     public function DealAdd($params = array())
@@ -129,7 +129,7 @@ class Crm
         return $this->restCommand('crm.deal.userfield.list ');
     }
 
-    public function getLeads($params = array())
+    public function getLeadList($params = array())
     {
         return $this->restCommand('crm.lead.list', $params);
     }
@@ -157,6 +157,33 @@ class Crm
     public function getLeadUserFields($params = array())
     {
         return $this->restCommand('crm.lead.userfield.list', $params);
+    }
+
+
+    public function getProductList($params = array())
+    {
+        return $this->restCommand('crm.product.list', $params); //example array('order'=> array( "NAME" => "ASC" ),'filter'=> array( "CATALOG_ID" => 1 ),'select' => array( "ID", "NAME", "CURRENCY_ID", "PRICE"))
+    }
+
+    public function ProductAdd($params = array())
+    {
+        return $this->restCommand('crm.product.add', $params);
+    }
+
+    public function ProductUpdate($id, $params = array())
+    {
+        return $this->restCommand(
+            'crm.product.update',
+            array(
+                'id' => intval($id),
+                'fields' => $params
+            )
+        );
+    }
+
+    public function ProductDelete($id)
+    {
+        return $this->restCommand('crm.product.delete', array('id' => $id));
     }
 
     public function getUserfields()
@@ -198,7 +225,7 @@ class Crm
 
     public function getListElementById($id)
     {
-        return $this->restCommand('crm.contact.get', $params = array(
+        return $this->restCommand('lists.element.get', $params = array(
             'IBLOCK_ID' => $id
         ));
     }
@@ -238,5 +265,15 @@ class Crm
         return $this->restCommand('crm.requisite.get', $params = array(
             'id' => $id
         ));
+    }
+
+    public function getProductById($id)
+    {
+        return $this->restCommand(
+            'crm.product.get',
+            $params = array(
+                'id' => $id,
+            )
+        );
     }
 }
