@@ -44,9 +44,10 @@ $resContacts = $crm->getContactList(array(
 //         "PHONE" =>  array(["VALUE" => '1234567', "VALUE_TYPE" => "WORK"]) //array(["VALUE" => $newContactPhone, "VALUE_TYPE" => "WORK"])
 //     )
 // );
+
+$resAttachContactToCompany = $crm->AttachContactToCompany($contactId, $companyId);
+
 // $resContactDelete = $crm->ContactDelete(5);
-
-
 
 echo '<pre>';
 print_r($resContacts);

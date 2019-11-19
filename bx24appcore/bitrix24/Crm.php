@@ -196,6 +196,22 @@ class Crm
         return $this->restCommand('crm.requisite.list', $params);
     }
 
+    public function AttachContactToCompany($contactId, $companyId)
+    {
+        return $this->restCommand('crm.company.contact.add', [
+            'id' => $companyId,
+            'fields' => [
+                "CONTACT_ID" => $contactId,
+            ],
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
+        ]);
+    }
+
+    public function getListElement($params)
+    {
+        return $this->restCommand('lists.element.get', $params = array());
+    }
+
     public function ListElementAdd($params = array())
     {
         return $this->restCommand('lists.element.add', $params);
@@ -223,9 +239,11 @@ class Crm
         );
     }
 
+
     public function getListElementById($id)
     {
         return $this->restCommand('lists.element.get', $params = array(
+            'IBLOCK_TYPE_ID' => 'lists',
             'IBLOCK_ID' => $id
         ));
     }

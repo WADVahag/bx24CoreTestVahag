@@ -5,6 +5,7 @@
 // $id = intval($_GET['id']);
 require "../run.php";
 
+$resListElements = $crm->getListElementById(33);
 
 // $resListElementAdd = $crm->ListElementAdd(array(
 //     'IBLOCK_TYPE_ID' => 'lists',
@@ -25,6 +26,6 @@ require "../run.php";
 //     )
 // );
 
-$resListElementDelete = $crm->ListsElementDelete(33, 'element1');
+// $resListElementDelete = $crm->ListsElementDelete(33, 'element1');
 echo '<pre>';
-print_r($resListElementDelete);
+print_r($resListElements);
