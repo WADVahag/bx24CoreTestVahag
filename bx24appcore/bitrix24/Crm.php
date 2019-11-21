@@ -124,6 +124,16 @@ class Crm
         return $this->restCommand('crm.deal.delete', array('id' => $id));
     }
 
+    public function DealContactAdd($dealId, $contactId)
+    {
+        return $this->restCommand('crm.deal.contact.add', array(
+            'id' => $dealId,
+            'fields' => array(
+                'CONTACT_ID' => $contactId
+            ),
+        ));
+    }
+
     public function getDealUserFields()
     {
         return $this->restCommand('crm.deal.userfield.list ');
