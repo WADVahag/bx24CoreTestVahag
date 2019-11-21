@@ -21,11 +21,11 @@ $datetime = new DateTime('tomorrow');
 $tommorow = $datetime->format('Y-m-d H:i:s');
 // $resDealGet = $crm->getDealById($id);
 
-$resDeals = $crm->getDealList(array(
-    'order' => ["ID" => "DESC"],
-    // 'filter' => [">PROBABILITY"=> 50 ], //["CATALOG_ID" => $catalogId],
-    'select' => ["*", "UF_*"]
-));
+// $resDeals = $crm->getDealList(array(
+//     'order' => ["ID" => "DESC"],
+//     // 'filter' => [">PROBABILITY"=> 50 ], //["CATALOG_ID" => $catalogId],
+//     'select' => ["*", "UF_*"]
+// ));
 
 // $resDealAdd = $crm->DealAdd(array(
 //     'fields' => array(
@@ -64,6 +64,7 @@ $resDeals = $crm->getDealList(array(
 // );
 // $resDealDelete = $crm->DealDelete(7);
 
+$resDealContactAdd = $crm->DealContactAdd($dealId, $contactId); //(9, 13); 
 
 echo '<pre>';
-print_r($resDeals);
+print_r($resDealContactAdd);
