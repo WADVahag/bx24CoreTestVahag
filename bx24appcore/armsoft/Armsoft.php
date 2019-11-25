@@ -5,25 +5,23 @@ namespace armsoft;
 class Armsoft
 {
 
-    private $soapUrl = '';
+    public $soapUrl = '';
     private $username = '';
     private $password = '';
     private $dbName = '';
-    function __construct($soapUrl)
+
+    function __construct($soapUrl, $username, $password, $dbName)
     {
-        return $this->soapUrl = $soapUrl; // must contain wsdl in the end
-        return $this->username = $username;
-        return $this->password = $password;
-        return $this->dbName = $dbName;
+        $this->soapUrl = $soapUrl; // must contain wsdl in the end
+        $this->username = $username;
+        $this->password = $password;
+        $this->dbName = $dbName;
     }
 
-    public function getProducts()
+    public function getProducts($soapClient) //soapClient is given from level above in run php
     {
-        $aHTTP['http']['header'] = "User-Agent: PHP-SOAP/5.5.11\r\n";
-        $context = stream_context_create($aHTTP);
-        $client = new SoapClient($this->soapUrl, array('trace' => 1, "stream_context" => $context));
 
-        $result = $client->__soapCall(
+        $result = $soapClient->__soapCall(
             "StartSession",
             array(
                 "parameters" => array(
@@ -32,7 +30,7 @@ class Armsoft
             )
         );
 
-        $resMat = $client->__soapCall(
+        $resMat = $soapClient->__soapCall( //soapClient is given from level above in run php
             "GetMaterialsList",
             array(
                 "parameters" => array(
@@ -43,6 +41,6 @@ class Armsoft
             )
         );
 
-        print_r($resMat);
+        return $resMat;
     }
 }
