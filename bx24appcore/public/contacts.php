@@ -16,12 +16,13 @@ require "../run.php";
 //     $resContacts = $crm->getContactList();
 // }
 
+$resContacts = $crm->getContactList();
 
-$resContacts = $crm->getContactList(array(
-    'order' => ["ID" => "DESC"],
-    // 'filter' => [">PROBABILITY"=> 50 ], //["CATALOG_ID" => $catalogId],
-    'select' => ["*", "UF_*"]
-));
+// $resContacts = $crm->getContactList(array(
+//     'order' => ["ID" => "DESC"],
+//     // 'filter' => [">PROBABILITY"=> 50 ], //["CATALOG_ID" => $catalogId],
+//     'select' => ["*", "UF_*"]
+// ));
 
 
 
@@ -45,7 +46,7 @@ $resContacts = $crm->getContactList(array(
 //     )
 // );
 
-$resAttachContactToCompany = $crm->AttachContactToCompany($contactId, $companyId);
+// $resAttachContactToCompany = $crm->AttachContactToCompany($contactId, $companyId);
 
 // $resContactDelete = $crm->ContactDelete(5);
 

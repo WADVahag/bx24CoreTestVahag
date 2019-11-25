@@ -249,6 +249,15 @@ class Crm
         );
     }
 
+    public function getActivityList($params)
+    {
+        return $this->restCommand('bizproc.activity.list', $params = array());
+    }
+
+    public function ActivityAdd($params)
+    {
+        return $this->restCommand('bizproc.activity.add', $params = array());
+    }
 
     public function getListElementById($id)
     {
