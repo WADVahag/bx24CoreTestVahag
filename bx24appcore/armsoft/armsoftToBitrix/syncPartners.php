@@ -69,7 +69,7 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
             if ($i == 5) {
                 die;
             }
-            if ($PartnerUpdateXMLId !== $Partner['PartnerID']) {
+            if ($PartnerUpdateXMLId != $Partner['PartnerID']) {
 
                 sleep(1);
                 $resPartnerAdd = $crm->CompanieAdd(array(

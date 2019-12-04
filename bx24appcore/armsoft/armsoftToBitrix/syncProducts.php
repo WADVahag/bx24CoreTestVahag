@@ -41,7 +41,7 @@ foreach ($materialsAll as $keychunk => $materialsChunk) {
             if ($i == 5) {
                 die;
             }
-            if ($productXMLID !== $material['Code']) {
+            if ($productXMLID != $material['Code']) {
 
                 sleep(1);
                 $resProductAdd = $crm->ProductAdd(array(
