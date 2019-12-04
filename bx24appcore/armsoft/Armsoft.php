@@ -69,4 +69,54 @@ class Armsoft
 
         return $allProductsArray;
     }
+
+    public function getPartners($soapClient) //soapClient is given from level above in run php
+    {
+
+        $result = $soapClient->__soapCall(
+            "StartSession",
+            array(
+                "parameters" => array(
+                    "UserName" => $this->username, "Password" => $this->password, "DBName" => $this->dbName
+                )
+            )
+        );
+
+        $resMat = $soapClient->__soapCall( //soapClient is given from level above in run php
+            "GetPartnersList",
+            array(
+                "parameters" => array(
+                    "sessionId" => $result->StartSessionResult,
+                    "seqNumber" => 1
+                    //"UserName"=>"ADMIN", "Password"=>"", "DBName"=>"Sample_70" 
+                )
+            )
+        );
+        $resMat = json_decode(json_encode($resMat), true);
+        echo '<pre>';
+        $totalPartners = $resMat['GetPartnersListResult']['Total'];
+        $allPartnersArray[1] = $resMat['GetPartnersListResult']['Rows']['PartnerInfo'];;
+        for ($i = 2; $i <= intval($totalPartners / 50 + 1); $i++) {
+            //echo $totalProducts;
+            $resMatAll = false;
+            echo $i;
+            echo '<br>';
+            $resMatAll = $soapClient->__soapCall( //soapClient is given from level above in run php
+                "GetPartnersNextChunk",
+                array(
+                    "parameters" => array(
+                        "sessionId" => $result->StartSessionResult,
+                        "seqNumber" => $i
+                    )
+                )
+            );
+            $resMatAll = json_decode(json_encode($resMatAll), true);
+            $totalPartnerFromCHunk = $resMatAll['GetPartnersNextChunkResult']['Rows']['PartnerInfo'];
+            $allPartnersArray[$i] = $totalPartnerFromCHunk;
+
+            $allPartnersArray[] = $i;
+        }
+
+        return $allPartnersArray;
+    }
 }
