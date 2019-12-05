@@ -155,7 +155,7 @@ var sync = {
         // $('#syncPartners').html('<div class="loaders">Loading...</div>');
         $('.btnContainer').toggle(225);
         $('.loader').toggle(400);
-        $('#syncPartners').prop('disabled', true);
+        // $('#syncPartners').prop('disabled', true);
         $.ajax({
             url: 'syncPartners.php',
             type: "POST",
@@ -165,15 +165,18 @@ var sync = {
                 if(result){
                 $('.loader').toggle(225);
                 $('.btnContainer').toggle(400);
-                $('#syncPartners').prop('disabled', false);
+                // $('#syncPartners').prop('disabled', false);
+              
                 console.log(result);
-                }
+              }else{
+              alert('noAnswer')
+            }
             },
             error: function(result){
                 $('.loading').html('ERROR');
                 $('.loader').toggle(225);
                 $('.btnContainer').toggle(400);
-                $('#syncPartners').prop('disabled', true);
+                // $('#syncPartners').prop('disabled', true);
             }
         });
     },
@@ -183,7 +186,7 @@ var sync = {
     // $('#syncPartners').html('<div class="loaders">Loading...</div>');
     $('.btnContainer').toggle(225);
     $('.loader').toggle(400);
-    $('#syncProducts').prop('disabled', true);
+    // $('#syncProducts').prop('disabled', true);
     $.ajax({
         url: 'syncProducts.php',
         type: "POST",
@@ -193,15 +196,17 @@ var sync = {
             if(result){
             $('.loader').toggle(225);
             $('.btnContainer').toggle(400);
-            $('#syncProducts').prop('disabled', false);
+            // $('#syncProducts').prop('disabled', false);
             console.log(result);
+            }else{
+              alert('noAnswer')
             }
         },
         error: function(result){
             $('.loading').html('ERROR');
             $('.loader').toggle(225);
             $('.btnContainer').toggle(400);
-            $('#syncProducts').prop('disabled', true);
+            // $('#syncProducts').prop('disabled', true);
         }
     });
     }

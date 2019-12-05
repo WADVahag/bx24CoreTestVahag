@@ -10,9 +10,11 @@ $PartnersAll = json_decode(json_encode($Partners), true);
 $i = 0;
 
 // file_put_contents('allPartners.json', json_encode($PartnersAll, JSON_UNESCAPED_UNICODE));
-
+// echo 'Start';
+// echo '<pre>';
+// print_r($PartnersAll['totalPartners']);
 foreach ($PartnersAll as $keychunk => $PartnersChunk) {
-    if (!empty($PartnersChunk)) {
+    // if (!empty($PartnersChunk)) {
         foreach ($PartnersChunk as $keyPartner => $Partner) {
             $resPartner = $crm->getCompanieList(
                 array(
@@ -26,9 +28,9 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
 
             $i++;
 
-            // if ($i == 5) {
-            //     die;
-            // }
+            if ($i > $PartnersAll['totalPartners']) {
+                die;
+            }
 
             if ($PartnerUpdateXMLId != $Partner['PartnerID']) {
 
@@ -47,7 +49,7 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
             
                 // echo '<pre>';
                 // print_r($resPartnerAdd);
-                // echo '<br> Avelacvel e nor Ynkerutyun' . 'productXMLID === ' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
+                // echo 'Avelacvel e nor Ynkerutyun' . 'productXMLID === ' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
             } else {
                 sleep(1);
                 $resPartnerUpdate = $crm->CompanieUpdate(
@@ -63,13 +65,14 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
 
                 // echo '<pre>';
                 // print_r($resPartnerUpdate);
-                echo '<br> Haytnabervela Hmanknum katarvel a Tarmacum' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
+                // echo 'Haytnabervela Hmanknum katarvel a Tarmacum' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
             }
         }
-    }else{
-        echo 'PartnersChunk is empty';
-    break;
-    }
+    // }else{
+    //     echo 'PartnersChunk is empty';
+    // break;
+    // }
+    
 }
-
+echo "we have CHanged $i Partners";
 ?>
