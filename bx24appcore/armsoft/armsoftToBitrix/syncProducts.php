@@ -30,6 +30,8 @@ foreach ($materialsAll as $keychunk => $materialsChunk) {
             $i++;
 
             if ($i > $materialsAll['totalProducts']) {
+                echo "we have CHanged ".($i - 1);
+                echo " Products";
                 die;
             }
 
@@ -47,9 +49,9 @@ foreach ($materialsAll as $keychunk => $materialsChunk) {
                     ],
                 ));
 
-                // echo '<pre>';
-                // print_r($resProductAdd);
-                // echo '<br> Avelacvel e nor produkt' . 'productXMLID === ' . $productXMLID . 'productUpdateId === ' . $productUpdateId . 'MATERIAL KOD HC ====' . $material['Code'];
+                echo '<pre>';
+                print_r($resProductAdd);
+                echo '<br> Avelacvel e nor produkt' . 'productXMLID === ' . $productXMLID . 'productUpdateId === ' . $productUpdateId . 'MATERIAL KOD HC ====' . $material['Code'];
             } else {
                 sleep(1);
                 $resProductUpdate = $crm->ProductUpdate(
@@ -63,12 +65,12 @@ foreach ($materialsAll as $keychunk => $materialsChunk) {
                     )
                 );
 
-                // echo '<pre>';
-                // print_r($resProductUpdate);
-                // echo '<br> Haytnabervela Hamnknum katarvel a Tarmacum' . $productXMLID . 'productUpdateId === ' . $productUpdateId . 'MATERIAL KOD HC ====' . $material['Code'];
+                echo '<pre>';
+                print_r($resProductUpdate);
+                echo '<br> Haytnabervela Hamnknum katarvel a Tarmacum' . $productXMLID . 'productUpdateId === ' . $productUpdateId . 'MATERIAL KOD HC ====' . $material['Code'];
             }
         }
 }
-echo "we have CHanged $i Partners";
+
 
 ?>

@@ -12,23 +12,24 @@ $i = 0;
 // file_put_contents('allPartners.json', json_encode($PartnersAll, JSON_UNESCAPED_UNICODE));
 // echo 'Start';
 // echo '<pre>';
-// print_r($PartnersAll['totalPartners']);
+// print_r($PartnersAll);
 foreach ($PartnersAll as $keychunk => $PartnersChunk) {
     // if (!empty($PartnersChunk)) {
         foreach ($PartnersChunk as $keyPartner => $Partner) {
             $resPartner = $crm->getCompanieList(
                 array(
                     'order' => ["SORT" => "ASC"],
-                    'filter' => ["UF_CRM_1575373969620" => $Partner['PartnerID']], //["CATALOG_ID" => $catalogId],
+                    'filter' => ["UF_CRM_1575536383883" => $Partner['PartnerID']], //["CATALOG_ID" => $catalogId],
                     'select' => ["*", "UF_*"]
                 )
             );
             $PartnerUpdateId = $resPartner['result'][0]['ID'];
-            $PartnerUpdateXMLId = $resPartner['result'][0]['UF_CRM_1575373969620'];
-
+            $PartnerUpdateXMLId = $resPartner['result'][0]['UF_CRM_1575536383883'];
             $i++;
 
-            if ($i > $PartnersAll['totalPartners']) {
+            if ($i >  $PartnersAll['totalPartners']) {
+                echo "we have CHanged ".($i-1);
+                echo ' Partners';
                 die;
             }
 
@@ -39,17 +40,18 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
                     'fields' => [       
                         "TITLE" => $Partner['Name'], //
                         "COMPANY_TYPE" => "CUSTOMER",
-                        "UF_CRM_1575372680585" => $Partner['Address'],
-                        "UF_CRM_1575372725687" => $Partner['BusinessAddress'],
-                        "UF_CRM_1575373341906" => $Partner['ManagerName'],
-                        "UF_CRM_1575373969620" => $Partner['PartnerID']
+                        "UF_CRM_1575536321627" => $Partner['Address'],
+                        "UF_CRM_1575536341107" => $Partner['BusinessAddress'],
+                        "UF_CRM_1575536354003" => $Partner['ManagerName'],
+                        "UF_CRM_1575536383883" => $Partner['PartnerID']
                     ],
                 ));
 
+                // echo 'number of change ===='.$i;
             
-                // echo '<pre>';
-                // print_r($resPartnerAdd);
-                // echo 'Avelacvel e nor Ynkerutyun' . 'productXMLID === ' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
+                echo '<pre>';
+                print_r($resPartnerAdd);
+                echo 'Avelacvel e nor Ynkerutyun' . 'productXMLID === ' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
             } else {
                 sleep(1);
                 $resPartnerUpdate = $crm->CompanieUpdate(
@@ -57,15 +59,15 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
                     array(
                         "TITLE" => $Partner['Name'], //
                         "COMPANY_TYPE" => "CUSTOMER",
-                        "UF_CRM_1575372680585" => $Partner['Address'],
-                        "UF_CRM_1575372725687" => $Partner['BusinessAddress'],
-                        "UF_CRM_1575373341906" => $Partner['ManagerName']
+                        "UF_CRM_1575536321627" => $Partner['Address'],
+                        "UF_CRM_1575536341107" => $Partner['BusinessAddress'],
+                        "UF_CRM_1575536354003" => $Partner['ManagerName'],
                     )
                 );
 
-                // echo '<pre>';
-                // print_r($resPartnerUpdate);
-                // echo 'Haytnabervela Hmanknum katarvel a Tarmacum' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
+                echo '<pre>';
+                print_r($resPartnerUpdate);
+                echo 'Haytnabervela Hmanknum katarvel a Tarmacum' . $PartnerUpdateXMLId . 'productUpdateId === ' . $PartnerUpdateId . "ParnerID === " . $Partner['PartnerID'];
             }
         }
     // }else{
@@ -74,5 +76,5 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
     // }
     
 }
-echo "we have CHanged $i Partners";
+
 ?>
