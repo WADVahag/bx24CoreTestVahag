@@ -47,8 +47,8 @@ class Armsoft
         for ($i = 2; $i <= intval($totalProducts / 50 + 1); $i++) {
             //echo $totalProducts;
             $resMatAll = false;
-            echo $i;
-            echo '<br>';
+            // echo $i;
+            // echo '<br>';
             $resMatAll = $soapClient->__soapCall( //soapClient is given from level above in run php
                 "GetMaterialsNextChunk",
                 array(
@@ -63,10 +63,8 @@ class Armsoft
             $allProductsArray[$i] = $totalProductFromCHunk;
 
             $allProductsArray[] = $i;
-            // print_r($allProductsArray[$i]);
         }
-
-
+        $allProductsArray['totalProducts'] = $totalProducts;
         return $allProductsArray;
     }
 
@@ -95,12 +93,13 @@ class Armsoft
         $resMat = json_decode(json_encode($resMat), true);
         echo '<pre>';
         $totalPartners = $resMat['GetPartnersListResult']['Total'];
-        $allPartnersArray[1] = $resMat['GetPartnersListResult']['Rows']['PartnerInfo'];;
+        $allPartnersArray[1] = $resMat['GetPartnersListResult']['Rows']['PartnerInfo'];
+        echo 'total Partners === '.$totalPartners;
         for ($i = 2; $i <= intval($totalPartners / 50 + 1); $i++) {
             //echo $totalProducts;
             $resMatAll = false;
-            echo $i;
-            echo '<br>';
+            // echo $i;
+            // echo '<br>';
             $resMatAll = $soapClient->__soapCall( //soapClient is given from level above in run php
                 "GetPartnersNextChunk",
                 array(
@@ -116,7 +115,7 @@ class Armsoft
 
             $allPartnersArray[] = $i;
         }
-
+       $allPartnersArray['totalPartners'] = $totalPartners;
         return $allPartnersArray;
     }
 }
