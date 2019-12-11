@@ -24,6 +24,8 @@ foreach ($materialsAll as $keychunk => $materialsChunk) {
                 )
             );
 
+            $resProduct = json_decode($resProduct , true);
+
             $productUpdateId = $resProduct['result'][0]['ID'];
             $productXMLID = $resProduct['result'][0]['XML_ID'];
 

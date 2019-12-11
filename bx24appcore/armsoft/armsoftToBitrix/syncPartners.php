@@ -23,6 +23,9 @@ foreach ($PartnersAll as $keychunk => $PartnersChunk) {
                     'select' => ["*", "UF_*"]
                 )
             );
+
+            $resPartner = json_decode($resPartner,true);
+
             $PartnerUpdateId = $resPartner['result'][0]['ID'];
             $PartnerUpdateXMLId = $resPartner['result'][0]['UF_CRM_1575536383883'];
             $i++;
