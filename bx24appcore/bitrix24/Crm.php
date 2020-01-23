@@ -11,10 +11,19 @@ class Crm
         return $this->webhook = $webhook;
     }
 
-    private function restCommand($method, $params = array())
+    private function restCommand($method, $params = array()) //$fp=false)
     {
+        if(!$params['AUTH_ID']){
+            $queryUrl  = $this->webhook . $method;
+        }else{
+            $queryUrl = $method;
+        }
 
-        $queryUrl  = $this->webhook . $method;
+            // echo '<pre>';
+            // print_r($params);
+            // echo '<pre>';
+            // echo 'queryUrl ===>>>'.$queryUrl;
+
         $queryData = http_build_query($params);
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -25,12 +34,21 @@ class Crm
             CURLOPT_URL            => $queryUrl,
             CURLOPT_POSTFIELDS     => $queryData,
         ));
+        
+        // if($fp){
+        // curl_setopt($curl, CURLOPT_FILE, $fp);
+        // }
         $result = curl_exec($curl);
         curl_close($curl);
         $result = json_decode($result, 1);
         return $result;
     }
 
+    public function getUser($request = array())
+    {
+        // print_r($request);
+        return $this->restCommand('user.current', $request);
+    }
 
     public function getContactList($params = array())
     {
@@ -124,16 +142,6 @@ class Crm
         return $this->restCommand('crm.deal.delete', array('id' => $id));
     }
 
-    public function DealContactAdd($dealId, $contactId)
-    {
-        return $this->restCommand('crm.deal.contact.add', array(
-            'id' => $dealId,
-            'fields' => array(
-                'CONTACT_ID' => $contactId
-            ),
-        ));
-    }
-
     public function getDealUserFields()
     {
         return $this->restCommand('crm.deal.userfield.list ');
@@ -196,7 +204,7 @@ class Crm
         return $this->restCommand('crm.product.delete', array('id' => $id));
     }
 
-    public function getUserfields()
+    public function getUserfields($params = array())
     {
         return $this->restCommand('crm.userfield.fields', $params);
     }
@@ -249,7 +257,7 @@ class Crm
         );
     }
 
-    public function getActivityList($params)
+    public function getActivityList()
     {
         return $this->restCommand('bizproc.activity.list', $params = array());
     }
@@ -267,7 +275,18 @@ class Crm
         ));
     }
 
-
+    public function createFile(){
+        $file = $_FILES['file']['tmp_name'];
+         $filename = $_FILES['file']['name'];
+        return $this->restCommand('disk.storage.uploadfile', $params = array(
+            'id' => 1,
+            'data' => array (
+                'NAME' => $filename,
+             ),
+             'fileContent' => base64_encode(file_get_contents($_FILES['file']['tmp_name'])),
+        )); 
+        // print_R($a);
+    }
 
     public function getContactById($id)
     {
@@ -310,6 +329,20 @@ class Crm
             'crm.product.get',
             $params = array(
                 'id' => $id,
+            )
+        );
+    }
+
+    public function ProviderAdd($code, $handler, $name)
+    {
+        return $this->restCommand(
+            'messageservice.sender.add',
+            array(
+                'CODE' => $code,
+                'TYPE' => 'SMS',
+                'HANDLER' => $handler,
+                'NAME' => $name,
+                'DESCRIPTION' => $name
             )
         );
     }
