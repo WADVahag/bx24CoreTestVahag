@@ -13,16 +13,16 @@ class Crm
 
     private function restCommand($method, $params = array()) //$fp=false)
     {
-        if(!$params['AUTH_ID']){
+        if (!$params['AUTH_ID']) {
             $queryUrl  = $this->webhook . $method;
-        }else{
+        } else {
             $queryUrl = $method;
         }
 
-            // echo '<pre>';
-            // print_r($params);
-            // echo '<pre>';
-            // echo 'queryUrl ===>>>'.$queryUrl;
+        // echo '<pre>';
+        // print_r($params);
+        // echo '<pre>';
+        // echo 'queryUrl ===>>>'.$queryUrl;
 
         $queryData = http_build_query($params);
         $curl = curl_init();
@@ -34,7 +34,7 @@ class Crm
             CURLOPT_URL            => $queryUrl,
             CURLOPT_POSTFIELDS     => $queryData,
         ));
-        
+
         // if($fp){
         // curl_setopt($curl, CURLOPT_FILE, $fp);
         // }
@@ -57,7 +57,9 @@ class Crm
 
     public function ContactAdd($params = array())
     {
-        return $this->restCommand('crm.contact.add', $params);
+        return $this->restCommand('crm.contact.add',     array(
+            "fields" => $params
+        ));
     }
 
     public function ContactUpdate($id, $params = array())
@@ -89,7 +91,9 @@ class Crm
 
     public function CompanieAdd($params = array())
     {
-        return $this->restCommand('crm.company.add', $params);
+        return $this->restCommand('crm.company.add',     array(
+            "fields" => $params
+        ));
     }
 
     public function CompanieUpdate($id, $params = array())
@@ -122,7 +126,9 @@ class Crm
 
     public function DealAdd($params = array())
     {
-        return $this->restCommand('crm.deal.add', $params);
+        return $this->restCommand('crm.deal.add',    array(
+            "fields" => $params
+        ));
     }
 
     public function DealUpdate($id, $params = array())
@@ -153,7 +159,9 @@ class Crm
     }
     public function LeadAdd($params = array())
     {
-        return $this->restCommand('crm.lead.add', $params);
+        return $this->restCommand('crm.lead.add',     array(
+            "fields" => $params
+        ));
     }
 
     public function LeadUpdate($id, $params = array())
@@ -178,6 +186,17 @@ class Crm
     }
 
 
+    function taskAdd($params = array())
+    {
+        return $this->restCommand(
+            'tasks.task.add',
+            array(
+                "fields" => $params
+            )
+        );
+    }
+
+
     public function getProductList($params = array())
     {
         return $this->restCommand('crm.product.list', $params); //example array('order'=> array( "NAME" => "ASC" ),'filter'=> array( "CATALOG_ID" => 1 ),'select' => array( "ID", "NAME", "CURRENCY_ID", "PRICE"))
@@ -185,7 +204,12 @@ class Crm
 
     public function ProductAdd($params = array())
     {
-        return $this->restCommand('crm.product.add', $params);
+        return $this->restCommand(
+            'crm.product.add',
+            array(
+                "fields" => $params
+            )
+        );
     }
 
     public function ProductUpdate($id, $params = array())
@@ -232,7 +256,9 @@ class Crm
 
     public function ListElementAdd($params = array())
     {
-        return $this->restCommand('lists.element.add', $params);
+        return $this->restCommand('lists.element.add',  array(
+            "fields" => $params
+        ));
     }
 
     public function ListElementUpdate($id, $elCode, $params = array())
@@ -257,14 +283,16 @@ class Crm
         );
     }
 
-    public function getActivityList()
+    public function getActivityList( $params = array())
     {
         return $this->restCommand('bizproc.activity.list', $params = array());
     }
 
     public function ActivityAdd($params)
     {
-        return $this->restCommand('bizproc.activity.add', $params = array());
+        return $this->restCommand('bizproc.activity.add',     array(
+            "fields" => $params
+        ));
     }
 
     public function getListElementById($id)
@@ -275,16 +303,17 @@ class Crm
         ));
     }
 
-    public function createFile(){
+    public function createFile()
+    {
         $file = $_FILES['file']['tmp_name'];
-         $filename = $_FILES['file']['name'];
+        $filename = $_FILES['file']['name'];
         return $this->restCommand('disk.storage.uploadfile', $params = array(
             'id' => 1,
-            'data' => array (
+            'data' => array(
                 'NAME' => $filename,
-             ),
-             'fileContent' => base64_encode(file_get_contents($_FILES['file']['tmp_name'])),
-        )); 
+            ),
+            'fileContent' => base64_encode(file_get_contents($_FILES['file']['tmp_name'])),
+        ));
         // print_R($a);
     }
 
