@@ -58,7 +58,8 @@ class Crm
     public function ContactAdd($params = array())
     {
         return $this->restCommand('crm.contact.add',     array(
-            "fields" => $params
+            "fields" => $params,
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ));
     }
 
@@ -92,7 +93,8 @@ class Crm
     public function CompanieAdd($params = array())
     {
         return $this->restCommand('crm.company.add',     array(
-            "fields" => $params
+            "fields" => $params,
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ));
     }
 
@@ -127,7 +129,8 @@ class Crm
     public function DealAdd($params = array())
     {
         return $this->restCommand('crm.deal.add',    array(
-            "fields" => $params
+            "fields" => $params,
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ));
     }
 
@@ -160,7 +163,8 @@ class Crm
     public function LeadAdd($params = array())
     {
         return $this->restCommand('crm.lead.add',     array(
-            "fields" => $params
+            "fields" => $params,
+            'params' => ['REGISTER_SONET_EVENT' => 'Y']
         ));
     }
 
@@ -191,7 +195,8 @@ class Crm
         return $this->restCommand(
             'tasks.task.add',
             array(
-                "fields" => $params
+                "fields" => $params,
+                'params' => ['REGISTER_SONET_EVENT' => 'Y']
             )
         );
     }
